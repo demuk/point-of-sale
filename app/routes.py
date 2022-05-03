@@ -15,8 +15,7 @@ def home():
 def register():
     if request.method == 'POST':
         userdatastore.create_user(username=request.form.get('lastname'),
-                                  email=request.form.get('email'), password=request.form.get('password'),
-                                  )
+                                  email=request.form.get('email'), password=request.form.get('password'))
         db.session.commit()
         return 'Created account'
     flash('Your account has been created!', 'success')

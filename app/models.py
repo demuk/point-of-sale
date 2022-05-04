@@ -13,7 +13,8 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(50))
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(255))
-    is_active = db.Column(db.Boolean, default=True)
+    location = db.Column(db.String(255))
+    active = db.Column(db.Boolean(), default=True)
     created_on = db.Column(db.DateTime, default=date.today())
     roles = db.relationship('Role', secondary=roles_users, backref=db.backref('users', lazy='dynamic'))
 

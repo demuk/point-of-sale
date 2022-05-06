@@ -1,6 +1,8 @@
+from sqlalchemy import ForeignKey
+
 from app import db, app
 from flask_security import UserMixin, RoleMixin, SQLAlchemyUserDatastore, Security
-from datetime import date
+from datetime import date, datetime
 
 roles_users = db.Table('roles_users',
                        db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
@@ -23,6 +25,37 @@ class Role(db.Model, RoleMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(40))
     description = db.Column(db.String(255))
+
+
+class Shop(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255))
+    location = db.Column(db.String(255))
+    inventory = db.relationship('Inventory', backref='shop', lazy=True)
+
+
+class Product(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255))
+    quantity = db.Column(db.Integer(97))
+    buying_price = db.Column(db.Integer(97))
+    selling_price = db.Column(db.Integer(97))
+    dealer = db.Column(db.String(255))
+    created_on = db.Column(db.DateTime, default=datetime.utcnow())
+    shop_id = db.Column(db.Integer, ForeignKey('shop.id'))
+    sales = db. relationship('Sales', backref='product', lazy=True)
+
+
+class Sales(db.Model):
+    id = db.Column(db.Interger, primary_key=True)
+    sales_id = db.Column(db.Integer, db.ForeignKey('product.id'))
+    created_on = db.Column(db.DateTime, default=datetime.utcnow())
+    receipt = db.relationship('Sales', backref='receipt', lazy=True)
+
+
+class Receipt(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    created_on = db.Column(db.DateTime, default=datetime.utcnow())
 
 
 userdatastore = SQLAlchemyUserDatastore(db, User, Role)

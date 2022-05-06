@@ -14,8 +14,10 @@ def home():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        userdatastore.create_user(username=request.form['username'],email=request.form['email'],
-                                  password=request.form['password'],location='Nairobi', is_active=True)
+        # userdatastore.create_user(username=request.form['username'],email=request.form['email'],
+        #                           password=request.form['password'],location='Nairobi', is_active=True)
+        user=User(username=request.form['username'],email=request.form['email'],password=request.form['password'],location='Nairobi')
+        db.session.add(user)
         db.session.commit()
         return 'Created account'
     flash('Your account has been created!', 'success')

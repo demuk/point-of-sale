@@ -1,6 +1,6 @@
 from app import app, db
 from flask import render_template, redirect, url_for, flash, request
-from app.models import userdatastore, security
+# from app.models import userdatastore, security
 from app.forms import RegistrationForm
 from app.models import User
 

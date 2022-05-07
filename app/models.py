@@ -1,4 +1,4 @@
-from sqlalchemy import ForeignKey
+# from sqlalchemy import ForeignKey
 
 from app import db, app
 from flask_security import UserMixin, RoleMixin, SQLAlchemyUserDatastore, Security
@@ -59,8 +59,8 @@ class Sales(db.Model):
 class Receipt(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     created_on = db.Column(db.DateTime, default=datetime.utcnow())
-    sale_id=db.Column(db.Integer,db.ForeignKey='sales.id')
+    sale_id=db.Column(db.Integer,db.ForeignKey('sales.id'))
 
 
-userdatastore = SQLAlchemyUserDatastore(db, User, Role)
-security = Security(app, userdatastore)
+# userdatastore = SQLAlchemyUserDatastore(db, User, Role)
+# security = Security(app, userdatastore)

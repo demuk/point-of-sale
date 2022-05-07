@@ -18,7 +18,9 @@ class User(db.Model, UserMixin):
     location = db.Column(db.String(255))
     active = db.Column(db.Boolean(), default=True)
     created_on = db.Column(db.DateTime, default=date.today())
-    roles = db.relationship('Role', secondary=roles_users, backref=db.backref('users', lazy='dynamic'))
+    # roles = db.relationship('Role', secondary=roles_users, backref=db.backref('users', lazy='dynamic'))
+    status=db.Column(db.String(55),default='normal')
+    products=db.relationship('Product',backref='dealer',lazy='dynamic')
 
 
 class Role(db.Model, RoleMixin):
@@ -31,7 +33,8 @@ class Shop(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255))
     location = db.Column(db.String(255))
-    inventory = db.relationship('Inventory', backref='shop', lazy=True)
+    products = db.relationship('Product', backref='shop', lazy=True)
+
 
 
 class Product(db.Model):
@@ -40,22 +43,23 @@ class Product(db.Model):
     quantity = db.Column(db.Integer(97))
     buying_price = db.Column(db.Integer(97))
     selling_price = db.Column(db.Integer(97))
-    dealer = db.Column(db.String(255))
+    user_id= db.Column(db.Integer,db.ForeignKey('user.id'))
     created_on = db.Column(db.DateTime, default=datetime.utcnow())
-    shop_id = db.Column(db.Integer, ForeignKey('shop.id'))
+    shop_id = db.Column(db.Integer, db.ForeignKey('shop.id'))
     sales = db. relationship('Sales', backref='product', lazy=True)
 
 
 class Sales(db.Model):
     id = db.Column(db.Interger, primary_key=True)
-    sales_id = db.Column(db.Integer, db.ForeignKey('product.id'))
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
     created_on = db.Column(db.DateTime, default=datetime.utcnow())
-    receipt = db.relationship('Sales', backref='receipt', lazy=True)
+    receipt = db.relationship('Receipt', backref='receipt', lazy=True)
 
 
 class Receipt(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     created_on = db.Column(db.DateTime, default=datetime.utcnow())
+    sale_id=db.Column(db.Integer,db.ForeignKey='sales.id')
 
 
 userdatastore = SQLAlchemyUserDatastore(db, User, Role)

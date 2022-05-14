@@ -40,9 +40,9 @@ class Shop(db.Model):
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255))
-    quantity = db.Column(db.Integer(97))
-    buying_price = db.Column(db.Integer(97))
-    selling_price = db.Column(db.Integer(97))
+    quantity = db.Column(db.Integer())
+    buying_price = db.Column(db.Integer())
+    selling_price = db.Column(db.Integer())
     user_id= db.Column(db.Integer,db.ForeignKey('user.id'))
     created_on = db.Column(db.DateTime, default=datetime.utcnow())
     shop_id = db.Column(db.Integer, db.ForeignKey('shop.id'))
@@ -50,7 +50,7 @@ class Product(db.Model):
 
 
 class Sales(db.Model):
-    id = db.Column(db.Interger, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
     created_on = db.Column(db.DateTime, default=datetime.utcnow())
     receipt = db.relationship('Receipt', backref='receipt', lazy=True)

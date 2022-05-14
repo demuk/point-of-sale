@@ -19,11 +19,12 @@ def register():
         user=User(username=request.form['username'],email=request.form['email'],password=request.form['password'],location='Nairobi')
         db.session.add(user)
         db.session.commit()
-        return 'Created account'
+        return render_template('login.html')
     flash('Your account has been created!', 'success')
     return render_template('register.html')
 
 
 @app.route('/login')
 def login():
+    
     return render_template('login.html')

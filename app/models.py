@@ -1,6 +1,8 @@
 # from sqlalchemy import ForeignKey
 
 from app import db
+from app import login
+from flask_login import  UserMixin
 from flask_security import UserMixin, RoleMixin, SQLAlchemyUserDatastore, Security
 from datetime import date, datetime
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -67,6 +69,11 @@ class Receipt(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     created_on = db.Column(db.DateTime, default=datetime.utcnow())
     sale_id=db.Column(db.Integer,db.ForeignKey('sales.id'))
+
+
+@login.user_loader
+def load_user(id):
+    return User.query.get(int(id))
 
 
 # userdatastore = SQLAlchemyUserDatastore(db, User, Role)

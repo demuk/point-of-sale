@@ -8,6 +8,11 @@ from flask_login import current_user, login_user
 
 
 @app.route('/')
+@app.route('/index')
+def index():
+    return render_template('index.html')
+
+
 @app.route('/home')
 def home():
     return render_template('home.html')

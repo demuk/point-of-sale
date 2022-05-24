@@ -21,9 +21,9 @@ def home():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        # userdatastore.create_user(username=request.form['username'],email=request.form['email'],
-        #                           password=request.form['password'],location='Nairobi', is_active=True)
-        user=User(username=request.form['username'],email=request.form['email'],password_hash=request.form['password'],location='Nairobi')
+
+
+        user=User(username=request.form['username'],email=request.form['email'],password_hash=generate_password_hash(request.form['password']),location='Nairobi')
         db.session.add(user)
         db.session.commit()
         return render_template('login.html')
@@ -41,6 +41,6 @@ def login():
             if check_password_hash(user.password_hash, request.form['password']):
                 login_user(user, remember=True)
                 return redirect(url_for('home'))
-        flash('Confirm Username and Password')
+        flash('invalid Username or Password')
         return redirect(url_for('login'))
     return render_template('login.html')

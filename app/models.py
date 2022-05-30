@@ -45,7 +45,6 @@ class Shop(db.Model):
     products = db.relationship('Product', backref='shop', lazy=True)
 
 
-
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255))

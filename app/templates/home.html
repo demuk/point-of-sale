@@ -16,6 +16,7 @@
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -43,9 +44,33 @@
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-lg-10">
                         <h2>Products</h2>
+                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  add product
+</button>
                         <p class="lead mb-5">
                             List of Products
+
                         </p>
+                        <table class="table">
+                            <tr>
+                                <th>name</th>
+                                <th>buying_price</th>
+                                <th>selling_price</th>
+                                <th>quantity</th>
+                                <th>Action</th>
+                            </tr>
+                            {% for product in products %}
+                            <tr>
+                                <td>{{product.name}}</td>
+                                <td>{{product.buying_price}}</td>
+                                <td>{{product.selling_price}}</td>
+                                <td>{{product.quantity}}</td>
+                                <td>
+                                    <a href="" class="btn btn-warning">edit</a>
+                                </td>
+                            </tr>
+                            {%endfor%}
+                        </table>
                     </div>
                 </div>
             </div>
@@ -104,11 +129,101 @@
                 <p class="text-muted small mb-0">Copyright &copy; point of sale 2022</p>
             </div>
         </footer>
+
+        <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button>
+
+<!-- add product Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{{url_for('add_product')}}" method="POST">
+           <div class="form-group">
+            <label >Product name</label>
+            <input type="text" class="form-control" name="name" aria-describedby="emailHelp" placeholder="product name">
+
+          </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Buying price</label>
+        <input type="text"  name="buying_price" class="form-control"  placeholder="buying price">
+      </div>
+             <div class="form-group">
+        <label for="exampleInputPassword1">selling price</label>
+        <input type="text"  name="selling_price" class="form-control" placeholder="selling price">
+      </div>
+   <div class="form-group">
+        <label for="exampleInputPassword1">quantity</label>
+        <input type="text"  name="quantity" class="form-control" id="exampleInputPassword3" placeholder="quantity">
+      </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+        <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal1">
+ Add shop
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel1">Add shop</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Shop name</label>
+            <input type="text" name="shop_name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="shop name">
+
+          </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Shop location</label>
+    <input type="" class="form-control" id="exampleInputPassword1" placeholder="Password">
+  </div>
+  <div class="form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
         <!-- Scroll to Top Button-->
         <a class="scroll-to-top rounded" href="#page-top"><i class="fas fa-angle-up"></i></a>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="{{ url_for('static', filename='js/scripts.js') }}" ></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </body>
 </html>

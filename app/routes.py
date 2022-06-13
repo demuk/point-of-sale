@@ -62,10 +62,9 @@ def add_product():
         return redirect(url_for('home'))
 
 
-
-    @app.route('/add_shop',methods=['GET','POST'])
-    @login_required
-    def add_shop():
+@app.route('/add_shop',methods=['GET','POST'])
+@login_required
+def add_shop():
         if request.method=='POST':
             name=request.form['shop_name']
             location=request.form['location']

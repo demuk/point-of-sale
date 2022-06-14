@@ -53,7 +53,9 @@ def add_product():
     if request.method=='POST':
         product=Product.query.filter_by(name=request.form['name']).first()
         if product:
-            product.quantity+=1
+            product = Product.quantity
+            prod_to_add = request.form['quantity']
+            product = prod_to_add + product
             db.session.commit()
             flash('already exist')
             return redirect(url_for('home'))

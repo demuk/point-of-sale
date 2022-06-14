@@ -2,7 +2,7 @@ from app import app, db
 from flask import render_template, redirect, url_for, flash, request
 # from app.models import userdatastore, security
 from app.forms import RegistrationForm
-from app.models import User,Product,Shop
+from app.models import User,Product,Shop,Sales
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import current_user, login_user,login_required
 
@@ -49,7 +49,16 @@ def login():
 @app.route('/add_product',methods=['GET','POST'])
 @login_required
 def add_product():
+
     if request.method=='POST':
+        product=Product.query.filter_by(name=request.form['name']).first()
+        if product:
+            product.quantity+=1
+            db.session.commit()
+            flash('already exist')
+            return redirect(url_for('home'))
+
+
         name=request.form['name']
         buying_price=request.form['buying_price']
         selling_price=request.form['selling_price']
@@ -72,3 +81,28 @@ def add_shop():
             db.session.add(shop)
             db.session.commit()
             return redirect(url_for('home'))
+
+
+@app.route('/sell_prod/<int:id>', methods=['POST','GET'])
+def sell_prod(id):
+    product = Product.query.get(id)
+    product.status = 'sold'
+    sale=Sales(product_id=id)
+    db.session.add(sale)
+    db.session.commit()
+    return redirect(url_for('view_prod',id=id))
+
+
+
+@app.route('/view_prod/<int:id>', methods=['POST','GET'])
+def view_prod(id):
+    product=Product.query.get(id)
+    return render_template('view_prod.html',product=product)
+
+
+@app.route('/delete_prod/<int:id>',methods=['GET','POST'])
+def delete_prod(id):
+    product=Product.query.get(id)
+    product.quantity -=1
+    db.session.commit()
+    return redirect(url_for('home'))

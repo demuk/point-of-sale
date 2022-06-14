@@ -24,45 +24,24 @@
         <nav id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand"><a href="#page-top">Point Of Sale</a></li>
-                <li class="sidebar-nav-item"><a href="#page-top">Home</a></li>
-                <li class="sidebar-nav-item"><a href="#about">Products</a></li>
+                <li class="sidebar-nav-item"><a href="{{url_for('home')}}">Home</a></li>
+              <!--   <li class="sidebar-nav-item"><a href="#about">Products</a></li>
                 <li class="sidebar-nav-item"><a href="#services">Sales</a></li>
                 <li class="sidebar-nav-item"><a href="#portfolio">About</a></li>
-                <li class="sidebar-nav-item"><a href="#contact">Contact</a></li>
+                <li class="sidebar-nav-item"><a href="#contact">Contact</a></li> -->
             </ul>
         </nav>
-        <!-- Header-->
-        <header class="masthead d-flex align-items-center">
-            <div class="container px-4 px-lg-5 text-center">
-                <h1 class="mb-1">Point Of Sale</h1>
-                <a class="btn btn-primary btn-xl" href="#about">Find Out More</a>
-            </div>
-        </header>
         <!-- About-->
         <section class="content-section bg-light" id="about">
             <div class="container px-4 px-lg-5 text-center">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-lg-10">
                         <h2>Products</h2>
-                        {%with messages=get_flashed_messages() %}
-                        {%if messages %}
-                         {%for message in messages %}
-                          <div class="alert alert-danger alert-dismissible fade show" role="alert">
-               {{message}}
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-                         {%endfor %}
-                        {%endif%}
-                        {%endwith%}
                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                        
-                        
-  add product
+  Edit product
 </button>
                         <p class="lead mb-5">
-                            List of Products
+                          
 
                         </p>
                         <table class="table">
@@ -71,110 +50,52 @@
                                 <th>buying_price</th>
                                 <th>selling_price</th>
                                 <th>quantity</th>
-                                <th>Action</th>
+                                <th>Status</th>
                             </tr>
-                            {% for product in products %}
-                            {%if product.status !='sold' and product.quantity >0 %}
+                            
                             <tr>
                                 <td>{{product.name}}</td>
                                 <td>{{product.buying_price}}</td>
                                 <td>{{product.selling_price}}</td>
                                 <td>{{product.quantity}}</td>
-                                <td>
-                                    <a href="{{ url_for('view_prod',id=product.id) }}" class="btn btn-warning">Open</a>
-                                </td>
+                                 <td>{{product.status}}</td>
                             </tr>
-                            {% endif %}
-                            {%endfor%}
+                         
                         </table>
                     </div>
                 </div>
             </div>
         </section>
-        <!-- Services-->
-       <!--  <section class="content-section bg-primary text-white text-center" id="services">
-            <div class="container px-4 px-lg-5">
-                <div class="content-section-heading">
-                    <h3 class="text-secondary mb-0">Sales</h3>
-
-                </div>
-
-                </div>
-            </div>
-        </section> -->
-        <!-- Callout-->
-        <section class="callout">
-            <div class="container px-4 px-lg-5 text-center">
-                <h2 class="mx-auto mb-5">Sales </h2>
-                <table class="table">
-                            <tr>
-                                <th>name</th>
-                                <th>buying_price</th>
-                                <th>selling_price</th>
-                                <th>quantity</th>
-                                <th>Action</th>
-                            </tr>
-                            {% for product in products %}
-                            {%if product.status =='sold' %}
-                           
-                            <tr>
-                                <td>{{product.name}}</td>
-                                <td>{{product.buying_price}}</td>
-                                <td>{{product.selling_price}}</td>
-                                <td>{{product.quantity}}</td>
-                                <td>
-                                    <a href="{{ url_for('view_prod',id=product.id) }}" class="btn btn-warning">Open</a>
-                                </td>
-                            </tr>
-                           
-                            {% endif %}
-                            {%endfor%}
-                        </table>
-            </div>
-        </section>
-        <!-- Portfolio-->
-        <section class="content-section" id="portfolio">
-            <div class="container px-4 px-lg-5">
-                <div class="content-section-heading text-center">
-                    <h3 class="text-secondary mb-0">Contact</h3>
-                    <h2 class="mb-5"></h2>
-                </div>
-                <div class="row gx-0">
-                    <div class="col-lg-6">
-                        <a class="portfolio-item" href="#!">
-
-                            <img class="img-fluid" src="assets/img/portfolio-1.jpg" alt="..." />
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Call to Action-->
-        <section class="content-section bg-primary text-white">
-        </section>
-        <!-- Map-->
+    
         <!-- Footer-->
         <footer class="footer text-center">
             <div class="container px-4 px-lg-5">
                 <ul class="list-inline mb-5">
                     <li class="list-inline-item">
-                        <a class="social-link rounded-circle text-white mr-3" href="#!"><i class="icon-social-facebook"></i></a>
+                        {% if product.status=='not sold'%}
+                       <a href="{{ url_for('sell_prod', id=product.id)}}" class="btn btn-success">sell</a>
+                        {% else%}
+                        <a href="" class="btn btn-warning">receipt</a>
+                        {%endif%}
                     </li>
                     <li class="list-inline-item">
+                       <a href="{{ url_for('delete_prod', id=product.id)}}" class="btn btn-danger">Delete</a>
+                    </li>
+                    <!-- <li class="list-inline-item">
                         <a class="social-link rounded-circle text-white mr-3" href="#!"><i class="icon-social-twitter"></i></a>
                     </li>
                     <li class="list-inline-item">
                         <a class="social-link rounded-circle text-white" href="#!"><i class="icon-social-github"></i></a>
-                    </li>
+                    </li> -->
                 </ul>
                 <p class="text-muted small mb-0">Copyright &copy; point of sale 2022</p>
             </div>
         </footer>
 
         <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
   Launch demo modal
-</button>
+</button> -->
 
 <!-- add product Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -203,7 +124,7 @@
       </div>
    <div class="form-group">
         <label for="exampleInputPassword1">quantity</label>
-        <input type="number"  name="quantity" class="form-control" id="exampleInputPassword3" placeholder="quantity">
+        <input type="text"  name="quantity" class="form-control" id="exampleInputPassword3" placeholder="quantity">
       </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
@@ -217,9 +138,9 @@
 </div>
 
         <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal1">
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal1">
  Add shop
-</button>
+</button> -->
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

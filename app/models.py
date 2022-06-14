@@ -51,6 +51,7 @@ class Product(db.Model):
     quantity = db.Column(db.Integer())
     buying_price = db.Column(db.Integer())
     selling_price = db.Column(db.Integer())
+    status=db.Column(db.String(55),default='not sold')
     user_id= db.Column(db.Integer,db.ForeignKey('user.id'))
     created_on = db.Column(db.DateTime, default=datetime.utcnow())
     shop_id = db.Column(db.Integer, db.ForeignKey('shop.id'))

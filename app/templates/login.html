@@ -40,15 +40,15 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome!</h1>
                                     </div>
-                                    <form class="user">
+                                    <form class="user" action="{{url_for('login')}}" method="post">
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
-                                                id="exampleInputEmail" aria-describedby="emailHelp"
+                                            <input type="text" class="form-control form-control-user"
+                                               name="username" aria-describedby="emailHelp"
                                                 placeholder="Username">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Password">
+                                                name="password" id="exampleInputPassword" placeholder="Password">
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
@@ -63,8 +63,11 @@
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
+<!--                                        <a class="small" href="forgot-password.html">Forgot Password?</a>-->
                                     </div>
+                                    <div class="text-center">
+                                <a class="small" href="{{url_for('register')}}">Doesn't have an account? click to register!</a>
+                            </div>
                                 </div>
                             </div>
                         </div>

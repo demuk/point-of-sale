@@ -44,7 +44,21 @@
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-lg-10">
                         <h2>Products</h2>
+                        {%with messages=get_flashed_messages() %}
+                        {%if messages %}
+                         {%for message in messages %}
+                          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+               {{message}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+                         {%endfor %}
+                        {%endif%}
+                        {%endwith%}
                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                        
+                        
   add product
 </button>
                         <p class="lead mb-5">
@@ -60,15 +74,17 @@
                                 <th>Action</th>
                             </tr>
                             {% for product in products %}
+                            {%if product.status !='sold' and product.quantity >0 %}
                             <tr>
                                 <td>{{product.name}}</td>
                                 <td>{{product.buying_price}}</td>
                                 <td>{{product.selling_price}}</td>
                                 <td>{{product.quantity}}</td>
                                 <td>
-                                    <a href="" class="btn btn-warning">edit</a>
+                                    <a href="{{ url_for('view_prod',id=product.id) }}" class="btn btn-warning">Open</a>
                                 </td>
                             </tr>
+                            {% endif %}
                             {%endfor%}
                         </table>
                     </div>
@@ -76,19 +92,44 @@
             </div>
         </section>
         <!-- Services-->
-        <section class="content-section bg-primary text-white text-center" id="services">
+       <!--  <section class="content-section bg-primary text-white text-center" id="services">
             <div class="container px-4 px-lg-5">
                 <div class="content-section-heading">
                     <h3 class="text-secondary mb-0">Sales</h3>
+
                 </div>
 
                 </div>
             </div>
-        </section>
+        </section> -->
         <!-- Callout-->
         <section class="callout">
             <div class="container px-4 px-lg-5 text-center">
-                <h2 class="mx-auto mb-5">About </h2>
+                <h2 class="mx-auto mb-5">Sales </h2>
+                <table class="table">
+                            <tr>
+                                <th>name</th>
+                                <th>buying_price</th>
+                                <th>selling_price</th>
+                                <th>quantity</th>
+                                <th>Action</th>
+                            </tr>
+                            {% for product in products %}
+                            {%if product.status =='sold' %}
+                           
+                            <tr>
+                                <td>{{product.name}}</td>
+                                <td>{{product.buying_price}}</td>
+                                <td>{{product.selling_price}}</td>
+                                <td>{{product.quantity}}</td>
+                                <td>
+                                    <a href="{{ url_for('view_prod',id=product.id) }}" class="btn btn-warning">Open</a>
+                                </td>
+                            </tr>
+                           
+                            {% endif %}
+                            {%endfor%}
+                        </table>
             </div>
         </section>
         <!-- Portfolio-->
@@ -162,7 +203,7 @@
       </div>
    <div class="form-group">
         <label for="exampleInputPassword1">quantity</label>
-        <input type="text"  name="quantity" class="form-control" id="exampleInputPassword3" placeholder="quantity">
+        <input type="number"  name="quantity" class="form-control" id="exampleInputPassword3" placeholder="quantity">
       </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>

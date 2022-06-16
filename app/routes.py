@@ -15,8 +15,12 @@ def index():
 
 @app.route('/home')
 def home():
-    products=Product.query.all()
-    return render_template('home.html',products=products)
+    products=Product.query.filter_by(name='Main BOARD').all()
+    count = 0
+    for prod in products:
+        count+=prod.quantity
+    
+    return render_template('home.html',products=products, count=count)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -51,14 +55,15 @@ def login():
 def add_product():
 
     if request.method=='POST':
-        product=Product.query.filter_by(name=request.form['name']).first()
-        if product:
-            product = Product.quantity
-            prod_to_add = request.form['quantity']
-            product = prod_to_add + product
-            db.session.commit()
-            flash('already exist')
-            return redirect(url_for('home'))
+        # product=Product.query.filter_by(name=request.form['name']).first()
+        # if product:
+            # if product.status=='not sold'
+       
+            # prod_to_add = int(request.form['quantity'])
+            # product.quantity+=prod_to_add
+            # db.session.commit()
+            # flash('already exist')
+            # return redirect(url_for('home'))
 
 
         name=request.form['name']

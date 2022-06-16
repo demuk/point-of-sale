@@ -48,6 +48,7 @@ class Shop(db.Model):
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255))
+    model = db.Column(db.String(255))
     quantity = db.Column(db.Integer())
     buying_price = db.Column(db.Integer())
     selling_price = db.Column(db.Integer())

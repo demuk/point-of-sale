@@ -1,8 +1,8 @@
-"""added password hashing
+"""removed status column
 
-Revision ID: 5c0b66ea9e45
+Revision ID: 4693d19e694d
 Revises: 
-Create Date: 2022-05-17 19:56:24.150003
+Create Date: 2022-06-15 14:02:00.676401
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '5c0b66ea9e45'
+revision = '4693d19e694d'
 down_revision = None
 branch_labels = None
 depends_on = None

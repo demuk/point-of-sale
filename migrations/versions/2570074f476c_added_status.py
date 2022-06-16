@@ -1,8 +1,8 @@
-"""added status to product
+"""added status
 
-Revision ID: 8e2481f37934
-Revises: 5c0b66ea9e45
-Create Date: 2022-06-14 12:39:24.704660
+Revision ID: 2570074f476c
+Revises: 4693d19e694d
+Create Date: 2022-06-15 14:17:56.202291
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '8e2481f37934'
-down_revision = '5c0b66ea9e45'
+revision = '2570074f476c'
+down_revision = '4693d19e694d'
 branch_labels = None
 depends_on = None
 

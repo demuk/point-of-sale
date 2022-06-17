@@ -35,7 +35,9 @@
         <header class="masthead d-flex align-items-center">
             <div class="container px-4 px-lg-5 text-center">
                 <h1 class="mb-1">Point Of Sale</h1>
-                <a class="btn btn-primary btn-xl" href="#about">Find Out More</a>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal1">
+ Add shop
+</button>
                 {{ count }}
             </div>
         </header>
@@ -72,6 +74,7 @@
                                 <th>buying_price</th>
                                 <th>selling_price</th>
                                 <th>quantity</th>
+                                <th>shop</th>
                                 <th>Action</th>
                             </tr>
                             {% for product in products %}
@@ -81,6 +84,7 @@
                                 <td>{{product.buying_price}}</td>
                                 <td>{{product.selling_price}}</td>
                                 <td>{{product.quantity}}</td>
+                                <td>{{product.shop.name}}</td>
                                 <td>
                                     <a href="{{ url_for('view_prod',id=product.id) }}" class="btn btn-warning">Open</a>
                                 </td>
@@ -122,7 +126,7 @@
                                 <td>{{product.name}}</td>
                                 <td>{{product.buying_price}}</td>
                                 <td>{{product.selling_price}}</td>
-                                <td>{{product.quantity}}</td>
+                                <td>{{count}}</td>
                                 <td>
                                     <a href="{{ url_for('view_prod',id=product.id) }}" class="btn btn-warning">Open</a>
                                 </td>
@@ -182,7 +186,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Add product</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -190,6 +194,13 @@
       <div class="modal-body">
         <form action="{{url_for('add_product')}}" method="POST">
            <div class="form-group">
+            <select name='shop_id'class="form-select" aria-label="Default select example">
+                  <option selected>Select shop</option>
+                  {%for shop in shops%}
+                  <option value="{{shop.id}}">{{shop.name}}</option>
+                  {%endfor%}
+  
+</select>
             <label >Product name</label>
             <input type="text" class="form-control" name="name" aria-describedby="emailHelp" placeholder="product name">
 
@@ -233,7 +244,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="">
+        <form action="{{url_for('add_shop')}}" method="POST">
           <div class="form-group">
             <label for="exampleInputEmail1">Shop name</label>
             <input type="text" name="shop_name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="shop name">
@@ -241,7 +252,7 @@
           </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Shop location</label>
-    <input type="" class="form-control" id="exampleInputPassword1" placeholder="Password">
+    <input type="text" class="form-control" name="location" id="exampleInputPassword1" placeholder="location">
   </div>
   <div class="form-check">
     <input type="checkbox" class="form-check-input" id="exampleCheck1">

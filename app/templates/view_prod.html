@@ -79,9 +79,9 @@
                         {%endif%}
                     </li>
                     <li class="list-inline-item">
-                        {%if product.status=='not sold'%}
+                        
                        <a href="{{ url_for('delete_prod', id=product.id)}}" class="btn btn-danger">Delete</a>
-                        {%endif%}
+                        
                     </li>
                     <!-- <li class="list-inline-item">
                         <a class="social-link rounded-circle text-white mr-3" href="#!"><i class="icon-social-twitter"></i></a>

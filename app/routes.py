@@ -15,12 +15,17 @@ def index():
 
 @app.route('/home')
 def home():
-    products=Product.query.filter_by(name='Main BOARD').all()
+    shops=Shop.query.all()
+    products=Product.query.all()
+    # for all_prod in products:
+    #     pname = all_prod[2]
+    #     print(pname)
+    qty_prods=Product.query.filter_by(name='Main BOARD').all()
     count = 0
-    for prod in products:
+    for prod in qty_prods:
         count+=prod.quantity
     
-    return render_template('home.html',products=products, count=count)
+    return render_template('home.html',products=products,shops=shops)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -71,7 +76,7 @@ def add_product():
         selling_price=request.form['selling_price']
         quantity=request.form['quantity']
         user_id=current_user.id
-        shop_id=1
+        shop_id=request.form['shop_id']
         product=Product(name=name,quantity=quantity,buying_price=buying_price,selling_price=selling_price,user_id=user_id,shop_id=shop_id)
         db.session.add(product)
         db.session.commit()

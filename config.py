@@ -8,8 +8,7 @@ load_dotenv(os.path.join(basedir, '.env'))
 
 class Config(object):
 
-    SQLALCHEMY_DATABASE_URI = 'postgres://bnhxyunkwohjxf:edfa41baf5f188be4ca7ef8e78f2fd2d3a53003590a1e5bb92a31e688f1c1165@ec2-23-23-182-238.compute-1.amazonaws.com:5432/d5jlnsibam9772' \
-        'sqlite:///' + os.path.join(basedir, 'pos.db')
+    SQLALCHEMY_DATABASE_URI = 'postgresql://ndemnvarpwxzda:26e0ee5e0550673ebd6bd039d485de7637b516c82383ac99f755418376ebb757@ec2-3-226-163-72.compute-1.amazonaws.com:5432/d3cvrpfr6tllno'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = 'kjfdkjfkdjfkdjfkdkdklfjlksjdfkldjfkldf'
 

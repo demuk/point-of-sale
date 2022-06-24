@@ -1,1 +1,1 @@
-web gunicorn pointofsale:app
+web: gunicorn pointofsale:app

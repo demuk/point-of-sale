@@ -38,13 +38,6 @@ class Role(db.Model, RoleMixin):
     description = db.Column(db.String(255))
 
 
-class Shop(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255))
-    location = db.Column(db.String(255))
-    products = db.relationship('Product', backref='shop', lazy=True)
-
-
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255))
@@ -57,6 +50,13 @@ class Product(db.Model):
     created_on = db.Column(db.DateTime, default=datetime.utcnow())
     shop_id = db.Column(db.Integer, db.ForeignKey('shop.id'))
     sales = db. relationship('Sales', backref='product', lazy=True)
+
+
+class Shop(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255))
+    location = db.Column(db.String(255))
+    products = db.relationship('Product', backref='shop', lazy=True)
 
 
 class Sales(db.Model):

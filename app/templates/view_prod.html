@@ -58,7 +58,12 @@
                                 <!-- <td>{{product.buying_price}}</td>
                                 <td>{{product.selling_price}}</td> -->
                                 <td>{{product.quantity}}</td>
-                                 <td>{{product.status}}</td>
+                                {% if product.status=='not sold'%}
+                                 <td><span class="badge badge-info">{{product.status}}</span></td>
+                                 {% else %}
+                                  <td><span class="badge badge-success">{{product.status}}</span></td>
+                                 {% endif %}
+                                }
                             </tr>
                          
                         </table>
@@ -132,8 +137,8 @@
 </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button> -->
       </div>
     </div>
   </div>

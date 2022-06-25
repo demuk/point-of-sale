@@ -4,7 +4,7 @@ from flask import render_template, redirect, url_for, flash, request
 from app.forms import RegistrationForm
 from app.models import User,Product,Shop,Sales
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import current_user, login_user,login_required
+from flask_login import current_user, login_user,login_required,logout_user
 
 
 @app.route('/')
@@ -118,3 +118,16 @@ def delete_prod(id):
     product.quantity -=1
     db.session.commit()
     return redirect(url_for('home'))
+
+
+
+@app.route('edit_product/<int:id>',methods=['GET','POST'])
+def edit_product(id):
+    product=Product.query.get(id)
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('login'))

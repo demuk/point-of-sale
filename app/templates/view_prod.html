@@ -83,11 +83,13 @@
                         <a href="" class="btn btn-warning">receipt</a>
                         {%endif%}
                     </li>
+                    {% if product.quantity >0%}
                     <li class="list-inline-item">
                         
                        <a href="{{ url_for('delete_prod', id=product.id)}}" class="btn btn-danger">Delete</a>
                         
                     </li>
+                    {%endif%}
                     <!-- <li class="list-inline-item">
                         <a class="social-link rounded-circle text-white mr-3" href="#!"><i class="icon-social-twitter"></i></a>
                     </li>

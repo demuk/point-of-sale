@@ -78,7 +78,7 @@
                                 <th>Action</th>
                             </tr>
                             {% for product in products %}
-                            {%if  product.quantity >0 %}
+                            {%if  product.quantity >=1 %}
                             <tr>
                                 <td>{{product.name}}</td>
                                 <!-- <td>{{product.buying_price}}</td>
@@ -112,7 +112,6 @@
             <div class="container px-4 px-lg-5 text-center">
                 <h2 class="mx-auto mb-5">Sales </h2>
                 <table class="table">
-                  {% if product.quantity >= 1%}
                             <tr>
                                 <th>name</th>
                                 <!-- <th>buying_price</th>
@@ -135,7 +134,6 @@
                            
                             {% endif %}
                             {%endfor%}
-                  {% endif %}
                         </table>
             </div>
         </section>

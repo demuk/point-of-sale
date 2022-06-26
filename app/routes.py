@@ -121,9 +121,9 @@ def delete_prod(id):
 
 
 
-@app.route('edit_product/<int:id>',methods=['GET','POST'])
-def edit_product(id):
-    product=Product.query.get(id)
+# @app.route('edit_product/<int:id>',methods=['GET','POST'])
+# def edit_product(id):
+#     product=Product.query.get(id)
 
 
 @app.route('/logout')

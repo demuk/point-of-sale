@@ -44,6 +44,7 @@
                           
 
                         </p>
+                        {% if product.quantity => 1%}
                         <table class="table">
                             <tr>
                                 <th>name</th>
@@ -65,7 +66,7 @@
                                  {% endif %}
                                 
                             </tr>
-                         
+                            {%endif%}
                         </table>
                     </div>
                 </div>

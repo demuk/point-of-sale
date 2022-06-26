@@ -112,6 +112,7 @@
             <div class="container px-4 px-lg-5 text-center">
                 <h2 class="mx-auto mb-5">Sales </h2>
                 <table class="table">
+                  {% if product.quantity => 1%}
                             <tr>
                                 <th>name</th>
                                 <!-- <th>buying_price</th>
@@ -134,6 +135,7 @@
                            
                             {% endif %}
                             {%endfor%}
+                  {% endif %}
                         </table>
             </div>
         </section>

@@ -123,27 +123,27 @@
         <form action="{{url_for('edit_product',id=product.id)}}" method="POST">
            <div class="form-group">
             <label >Product name</label>
-            <input type="text" class="form-control" name="name" value="" aria-describedby="emailHelp" placeholder="{{product.name}}">
+            <input type="text" class="form-control" name="name"  aria-describedby="emailHelp" value="{{product.name}}">
 
           </div>
            <div class="form-group">
             <label >Product model</label>
-            <input type="text" class="form-control" name="name" value="" aria-describedby="emailHelp" placeholder="{{product.model}}">
+            <input type="text" class="form-control" name="name"  aria-describedby="emailHelp" value="{{product.model}}">
 
           </div>
       <div class="form-group">
         <label for="exampleInputPassword1">Buying price</label>
-        <input type="text"  name="buying_price" class="form-control" value="" placeholder="{{product.buying_price}}">
+        <input type="text"  name="buying_price" class="form-control"  value="{{product.buying_price}}">
       </div>
              <div class="form-group">
         <label for="exampleInputPassword1">selling price</label>
-        <input type="text"  name="selling_price" class="form-control" value="" placeholder="{{product.selling_price}}">
+        <input type="text"  name="selling_price" class="form-control"  value="{{product.selling_price}}">
       </div>
    <!-- <div class="form-group">
         <label for="exampleInputPassword1">quantity</label>
         <input type="text"  name="quantity" class="form-control" id="exampleInputPassword3" placeholder="quantity"> -->
       </div>
-  <button type="submit" value="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary">Submit</button>
 </form>
       </div>
       <div class="modal-footer">

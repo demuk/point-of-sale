@@ -78,7 +78,7 @@
             <div class="container px-4 px-lg-5">
                 <ul class="list-inline mb-5">
                     <li class="list-inline-item">
-                        {% if product.status=='not sold' and product.quantity >=1%}
+                        {% if product.status=='not sold' and product.quantity >0%}
                        <a href="{{ url_for('sell_prod', id=product.id)}}" class="btn btn-success">sell</a>
                         {% else%}
                         <a href="" class="btn btn-warning">receipt</a>

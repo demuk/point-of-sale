@@ -129,6 +129,7 @@ def edit_product(id):
     product.model=request.form['model']
     product.buying_price=request.form['buying_price']
     product.selling_price=request.form['selling_price']
+    db.session.add(product)
     db.session.commit()
     return redirect(url_for('view_prod'))
 

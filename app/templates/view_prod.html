@@ -120,7 +120,7 @@
       </div>
       {%endif%}
       <div class="modal-body">
-        <form action="{{url_for('edit_product',id=product.id)}}" method="POST">
+        <form action="{{url_for('edit_product',id=product.id)}}" method="GET">
            <div class="form-group">
             <label >Product name</label>
             <input type="text" class="form-control" name="name"  aria-describedby="emailHelp" value="{{product.name}}">

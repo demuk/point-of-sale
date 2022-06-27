@@ -131,7 +131,7 @@ def edit_product(id):
     product.selling_price=request.form['selling_price']
     db.session.add(product)
     db.session.commit()
-    return redirect(url_for('view_prod'))
+    return redirect(url_for('home'))
 
 
 @app.route('/logout')

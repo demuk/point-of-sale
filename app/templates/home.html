@@ -196,17 +196,22 @@
       <div class="modal-body">
         <form action="{{url_for('add_product')}}" method="POST">
            <div class="form-group">
+            <label>Shop name</label>
             <select name='shop_id'class="form-select" aria-label="Default select example">
                   <option selected>Select shop</option>
                   {%for shop in shops%}
                   <option value="{{shop.id}}">{{shop.name}}</option>
                   {%endfor%}
   
-</select>
+            </select>
             <label >Product name</label>
             <input type="text" class="form-control" name="name" aria-describedby="emailHelp" placeholder="product name">
 
           </div>
+          <div class="form-group">
+        <label for="exampleInputPassword1">Model</label>
+        <input type="text"  name="model" class="form-control"  placeholder="model">
+      </div>
       <div class="form-group">
         <label for="exampleInputPassword1">Buying price</label>
         <input type="text"  name="buying_price" class="form-control"  placeholder="buying price">

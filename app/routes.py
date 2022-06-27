@@ -72,12 +72,13 @@ def add_product():
 
 
         name=request.form['name']
+        model = request.form['model']
         buying_price=request.form['buying_price']
         selling_price=request.form['selling_price']
         quantity=1
         user_id=current_user.id
         shop_id=request.form['shop_id']
-        product=Product(name=name,quantity=quantity,buying_price=buying_price,selling_price=selling_price,user_id=user_id,shop_id=shop_id)
+        product=Product(name=name,model=model,quantity=quantity,buying_price=buying_price,selling_price=selling_price,user_id=user_id,shop_id=shop_id)
         db.session.add(product)
         db.session.commit()
         return redirect(url_for('home'))

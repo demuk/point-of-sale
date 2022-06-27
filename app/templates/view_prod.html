@@ -118,23 +118,28 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="{{url_for('add_product')}}" method="POST">
+        <form action="{{url_for('edit_product',id=product.id)}}" method="POST">
            <div class="form-group">
             <label >Product name</label>
-            <input type="text" class="form-control" name="name" aria-describedby="emailHelp" placeholder="product name">
+            <input type="text" class="form-control" name="name" aria-describedby="emailHelp" placeholder="{{product.name}}">
+
+          </div>
+           <div class="form-group">
+            <label >Product model</label>
+            <input type="text" class="form-control" name="name" aria-describedby="emailHelp" placeholder="{{product.model}}">
 
           </div>
       <div class="form-group">
         <label for="exampleInputPassword1">Buying price</label>
-        <input type="text"  name="buying_price" class="form-control"  placeholder="buying price">
+        <input type="text"  name="buying_price" class="form-control"  placeholder="{{product.buying_price}}">
       </div>
              <div class="form-group">
         <label for="exampleInputPassword1">selling price</label>
-        <input type="text"  name="selling_price" class="form-control" placeholder="selling price">
+        <input type="text"  name="selling_price" class="form-control" placeholder="{{product.selling_price}}">
       </div>
-   <div class="form-group">
+   <!-- <div class="form-group">
         <label for="exampleInputPassword1">quantity</label>
-        <input type="text"  name="quantity" class="form-control" id="exampleInputPassword3" placeholder="quantity">
+        <input type="text"  name="quantity" class="form-control" id="exampleInputPassword3" placeholder="quantity"> -->
       </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>

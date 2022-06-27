@@ -122,9 +122,15 @@ def delete_prod(id):
 
 
 
-# @app.route('edit_product/<int:id>',methods=['GET','POST'])
-# def edit_product(id):
-#     product=Product.query.get(id)
+@app.route('edit_product/<int:id>',methods=['GET','POST'])
+def edit_product(id):
+    product=Product.query.get(id)
+    product.name=request.form['name']
+    product.model=request.form['model']
+    product.buying_price=request.form['buying_price']
+    product.selling_price=request.form['selling_price']
+    db.session.commit()
+    return redirect(url_for('view_prod'))
 
 
 @app.route('/logout')

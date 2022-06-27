@@ -73,7 +73,7 @@
                                 <th>name</th>
                                 <!-- <th>buying_price</th>
                                 <th>selling_price</th> -->
-                                <th>quantity</th>
+                                <th>model</th>
                                 <th>shop</th>
                                 <th>Action</th>
                             </tr>
@@ -83,7 +83,7 @@
                                 <td>{{product.name}}</td>
                                 <!-- <td>{{product.buying_price}}</td>
                                 <td>{{product.selling_price}}</td> -->
-                                <td>{{product.quantity}}</td>
+                                <td>{{product.model}}</td>
                                 <td>{{product.shop.name}}</td>
                                 <td>
                                     <a href="{{ url_for('view_prod',id=product.id) }}" class="btn btn-warning">Open</a>

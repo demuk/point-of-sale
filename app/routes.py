@@ -74,7 +74,7 @@ def add_product():
         name=request.form['name']
         buying_price=request.form['buying_price']
         selling_price=request.form['selling_price']
-        quantity=request.form['quantity']
+        quantity=1
         user_id=current_user.id
         shop_id=request.form['shop_id']
         product=Product(name=name,quantity=quantity,buying_price=buying_price,selling_price=selling_price,user_id=user_id,shop_id=shop_id)
@@ -115,7 +115,7 @@ def view_prod(id):
 @app.route('/delete_prod/<int:id>',methods=['GET','POST'])
 def delete_prod(id):
     product=Product.query.get(id)
-    product.quantity -=1
+    db.session.delete(product)
     db.session.commit()
     return redirect(url_for('home'))
 

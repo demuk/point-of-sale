@@ -121,7 +121,7 @@
                                 <th>Action</th>
                             </tr>
                             {% for product in products %}
-                            {%if product.status =='sold' %}
+                            {%if product.status =='sold' and product.quantity >0%}
                            
                             <tr>
                                 <td>{{product.name}}</td>

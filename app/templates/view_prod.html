@@ -70,6 +70,10 @@
                             </tr>
                           {%endif%}
                         </table>
+                        <p>sold at ksh {{product.selling_price}}</p>
+                        {%if product.status=='sold'%}
+                        <p>profit earned is {{profit}}</p>
+                        {%endif%}
                     </div>
                 </div>
             </div>

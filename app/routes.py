@@ -112,7 +112,8 @@ def sell_prod(id):
 @app.route('/view_prod/<int:id>', methods=['POST','GET'])
 def view_prod(id):
     product=Product.query.get(id)
-    return render_template('view_prod.html',product=product)
+    profit=product.selling_price-product.buying_price
+    return render_template('view_prod.html',product=product,profit=profit)
 
 
 @app.route('/delete_prod/<int:id>',methods=['GET','POST'])

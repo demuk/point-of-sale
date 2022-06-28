@@ -99,14 +99,20 @@ def add_shop():
 @app.route('/sell_prod/<int:id>', methods=['POST','GET'])
 def sell_prod(id):
     product = Product.query.get(id)
-    product.status = 'sold'
-    sale=Sales(product_id=id)
     if request.method=='POST':
+        product.status = 'sold'
+        sale=Sales(product_id=id)
         product.selling_price=request.form['selling_price']
-
+        db.session.add(product)
         db.session.add(sale)
         db.session.commit()
-    return redirect(url_for('view_prod',id=id))
+        return redirect(url_for('view_prod',id=id))
+
+    
+    
+    
+    
+    
 
 
 

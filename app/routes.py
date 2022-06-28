@@ -103,7 +103,7 @@ def sell_prod(id):
         product.status = 'sold'
         sale=Sales(product_id=id)
         product.selling_price=request.form['selling_price']
-        db.session.add(product)
+        # db.session.add(product)
         db.session.add(sale)
         db.session.commit()
     return redirect(url_for('view_prod',id=id))

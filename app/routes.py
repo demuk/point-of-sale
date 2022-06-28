@@ -103,8 +103,9 @@ def sell_prod(id):
     sale=Sales(product_id=id)
     if request.method=='POST':
         product.selling_price=request.form['selling_price']
-    db.session.add(sale)
-    db.session.commit()
+
+        db.session.add(sale)
+        db.session.commit()
     return redirect(url_for('view_prod',id=id))
 
 

@@ -29,6 +29,9 @@
                 <li class="sidebar-nav-item"><a href="#services">Sales</a></li>
                 <li class="sidebar-nav-item"><a href="#portfolio">About</a></li>
                 <li class="sidebar-nav-item"><a href="#contact">Contact</a></li>
+                {% if current_user.is_authenticated%}
+                 <li class="sidebar-nav-item"><a href="{{url_for('logout')}}">Logout</a></li>
+                {%endif%}
             </ul>
         </nav>
         <!-- Header-->

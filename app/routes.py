@@ -106,7 +106,7 @@ def sell_prod(id):
         db.session.add(product)
         db.session.add(sale)
         db.session.commit()
-        return redirect(url_for('view_prod',id=id))
+    return redirect(url_for('view_prod',id=id))
 
     
     

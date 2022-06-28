@@ -74,7 +74,7 @@ def add_product():
         name=request.form['name']
         model = request.form['model']
         buying_price=request.form['buying_price']
-        selling_price=request.form['selling_price']
+        selling_price=0
         quantity=1
         user_id=current_user.id
         shop_id=request.form['shop_id']
@@ -101,6 +101,8 @@ def sell_prod(id):
     product = Product.query.get(id)
     product.status = 'sold'
     sale=Sales(product_id=id)
+    if request.method=='POST':
+        product.selling_price=request.form['selling_price']
     db.session.add(sale)
     db.session.commit()
     return redirect(url_for('view_prod',id=id))

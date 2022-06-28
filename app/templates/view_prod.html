@@ -81,7 +81,7 @@
                 <ul class="list-inline mb-5">
                     <li class="list-inline-item">
                         {% if product.status=='not sold' and product.quantity >0%}
-                       <a href="{{ url_for('sell_prod', id=product.id)}}" class="btn btn-success">sell</a>
+                       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal3">sell</button>
                         {% else%}
                         <a href="" class="btn btn-warning">receipt</a>
                         {%endif%}
@@ -159,38 +159,38 @@
  Add shop
 </button> -->
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- sell product modal -->
+<div class="modal fade" id="exampleModa3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel1">Add shop</h5>
+        <h5 class="modal-title" id="exampleModalLabel1">sell product</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form action="">
+        <form action="{{url_for('sell_prod',id=product.id)}}" action="post">
           <div class="form-group">
-            <label for="exampleInputEmail1">Shop name</label>
-            <input type="text" name="shop_name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="shop name">
+            <label for="exampleInputEmail1">Selling price</label>
+            <input type="number" name="selling_price" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="enter selling price">
 
           </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Shop location</label>
-    <input type="" class="form-control" id="exampleInputPassword1" placeholder="Password">
-  </div>
-  <div class="form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-  </div>
+          <!-- <div class="form-group">
+            <label for="exampleInputPassword1">Shop location</label>
+            <input type="" class="form-control" id="exampleInputPassword1" placeholder="Password">
+          </div> -->
+         <!--  <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+          </div> -->
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
       </div>
-      <div class="modal-footer">
+     <!--  <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>

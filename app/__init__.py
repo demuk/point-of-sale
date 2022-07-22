@@ -4,9 +4,14 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_security import Security,SQLAlchemyUserDatastore
-# from app.models import Role,User
+import flask_excel as excel
+from flask_sqlalchemy import SQLAlchemy
+# from flask.sqlalchemy import SQLAlchemy
+# import pyexcel.ext.xls
+# # from app.models import Role,User
 
 app = Flask(__name__)
+excel.init_excel(app)
 app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db, render_as_batch=True)
@@ -41,5 +46,5 @@ def create_app(config_class=Config):
     return app
 
 
-from app import routes,models
+from app import routes , models
 

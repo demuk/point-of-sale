@@ -5,6 +5,7 @@ from app.forms import RegistrationForm
 from app.models import User,Product,Shop,Sales
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import current_user, login_user,login_required,logout_user
+import flask_excel as excel
 
 
 @app.route('/')
@@ -142,6 +143,21 @@ def edit_product(id):
     db.session.add(product)
     db.session.commit()
     return redirect(url_for('view_prod',id=id))
+
+@app.route('/sales')
+@login_required
+def sales():
+    sales=Sales.query.all()
+    products=Product.query.all()
+    return render_template('sales.html',sales=sales,products=products)
+
+
+@app.route("/export", methods=['GET'])
+def export():
+    query_sets= Product.query.all()
+    column_names = ['id', 'name','status','model']
+    return excel.make_response_from_query_sets(query_sets, column_names, "xlsx")
+    return redirect(url_for('home'))
 
 
 @app.route('/logout')

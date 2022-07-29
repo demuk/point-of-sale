@@ -6,12 +6,18 @@ from app.models import User,Product,Shop,Sales
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import current_user, login_user,login_required,logout_user
 import flask_excel as excel
+import string
+import secrets
+import os
+
 
 
 @app.route('/')
 @app.route('/index')
+@login_required
 def index():
-    return render_template('index.html')
+    shops=Shop.query.all()
+    return render_template('index.html',shops=shops)
 
 
 @app.route('/home')
@@ -32,9 +38,13 @@ def home():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
+        alphabet = string.ascii_letters + string.digits
+        user_key = ''.join(secrets.choice(alphabet) for i in range(32))
+        
 
 
-        user=User(username=request.form['username'],email=request.form['email'],password_hash=generate_password_hash(request.form['password']),location='Nairobi')
+        user=User(username=request.form['username'],email=request.form['email'],user_key=user_key, 
+            password_hash=generate_password_hash(request.form['password']),location='Nairobi')
         db.session.add(user)
         db.session.commit()
         return render_template('login.html')
@@ -59,6 +69,7 @@ def login():
 @app.route('/add_product',methods=['GET','POST'])
 @login_required
 def add_product():
+     
 
     if request.method=='POST':
         # product=Product.query.filter_by(name=request.form['name']).first()
@@ -73,13 +84,16 @@ def add_product():
 
 
         name=request.form['name']
+        alphabet = string.ascii_letters + string.digits
+        product_key = ''.join(secrets.choice(alphabet) for i in range(32))
         model = request.form['model']
         buying_price=request.form['buying_price']
         selling_price=0
         quantity=1
         user_id=current_user.id
         shop_id=request.form['shop_id']
-        product=Product(name=name,model=model,quantity=quantity,buying_price=buying_price,selling_price=selling_price,user_id=user_id,shop_id=shop_id)
+        product=Product(name=name,model=model,quantity=quantity,buying_price=buying_price,product_key=product_key,
+            selling_price=selling_price,user_id=user_id,shop_id=shop_id)
         db.session.add(product)
         db.session.commit()
         return redirect(url_for('home'))
@@ -88,10 +102,13 @@ def add_product():
 @app.route('/add_shop',methods=['GET','POST'])
 @login_required
 def add_shop():
+     
         if request.method=='POST':
+            alphabet = string.ascii_letters + string.digits
+            shop_key = ''.join(secrets.choice(alphabet) for i in range(32))
             name=request.form['shop_name']
             location=request.form['location']
-            shop=Shop(name=name,location=location)
+            shop=Shop(name=name,location=location,shop_key=shop_key)
             db.session.add(shop)
             db.session.commit()
             return redirect(url_for('home'))
@@ -99,10 +116,13 @@ def add_shop():
 
 @app.route('/sell_prod/<int:id>', methods=['POST','GET'])
 def sell_prod(id):
+     
     product = Product.query.get(id)
     if request.method=='POST':
+        alphabet = string.ascii_letters + string.digits
+        sales_key = ''.join(secrets.choice(alphabet) for i in range(32))
         product.status = 'sold'
-        sale=Sales(product_id=id)
+        sale=Sales(product_id=id,sales_key= sales_key)
         product.selling_price=request.form['selling_price']
         # db.session.add(product)
         db.session.add(sale)
@@ -111,10 +131,16 @@ def sell_prod(id):
 
     
     
+@app.route('/inventory')
+def inventory():
+    products=Product.query.all()
+    shops=Shop.query.all()
+    return render_template('inventory.html',products=products, shops=shops)
     
-    
-    
-
+@app.route('/view_shop/<sk>')
+def view_shop(sk):
+    shop=Shop.query.filter_by(shop_key=sk)
+    return render_template('shop.html',shop=shop)
 
 
 @app.route('/view_prod/<int:id>', methods=['POST','GET'])

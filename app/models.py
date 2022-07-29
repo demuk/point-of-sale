@@ -24,6 +24,7 @@ class User(db.Model, UserMixin):
     # roles = db.relationship('Role', secondary=roles_users, backref=db.backref('users', lazy='dynamic'))
     status=db.Column(db.String(55),default='normal')
     products=db.relationship('Product',backref='dealer',lazy='dynamic')
+    user_key=db.Column(db.String(255))
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -50,6 +51,7 @@ class Product(db.Model):
     created_on = db.Column(db.DateTime, default=datetime.utcnow())
     shop_id = db.Column(db.Integer, db.ForeignKey('shop.id'))
     sales = db. relationship('Sales', backref='product', lazy=True)
+    product_key=db.Column(db.String(255))
 
 
 class Shop(db.Model):
@@ -57,6 +59,7 @@ class Shop(db.Model):
     name = db.Column(db.String(255))
     location = db.Column(db.String(255))
     products = db.relationship('Product', backref='shop', lazy=True)
+    shop_key=db.Column(db.String(255))
 
 
 class Sales(db.Model):
@@ -64,12 +67,14 @@ class Sales(db.Model):
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
     created_on = db.Column(db.DateTime, default=datetime.utcnow())
     receipt = db.relationship('Receipt', backref='receipt', lazy=True)
+    sales_key = db.Column(db.String(255))
 
 
 class Receipt(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     created_on = db.Column(db.DateTime, default=datetime.utcnow())
     sale_id=db.Column(db.Integer,db.ForeignKey('sales.id'))
+    receipt_key = db.Column(db.String(255))
 
 
 @login.user_loader

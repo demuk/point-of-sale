@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Point of sale - Dashboard</title>
+    <title>Point of sale - Dashboardss</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -110,7 +110,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">My shops:</h6>
                          
-                        <a class="collapse-item" href="">Add product</a>
+                        <a class="collapse-item" href="" data-toggle="modal" data-target="#exampleModal">Add product</a>
                        
                         <a class="collapse-item" href="register.html">View products</a>
                         <!-- <a class="collapse-item" href="forgot-password.html">Forgot Password</a> -->
@@ -738,6 +738,62 @@
             </div>
         </div>
     </div>
+
+
+    <!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button> -->
+
+<!-- add product Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add product</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{{url_for('add_product')}}" method="POST">
+           <div class="form-group">
+            <label>Shop name</label>
+            <select name='shop_id'class="form-select" aria-label="Default select example">
+                  <option selected>Select shop</option>
+                                    <option value="{{shop.id}}">{{shop.name}}</option>
+  
+            </select>
+            <label >Product name</label>
+            <input type="text" class="form-control" name="name" aria-describedby="emailHelp" placeholder="product name">
+
+          </div>
+          <div class="form-group">
+        <label for="exampleInputPassword1">Model</label>
+        <input type="text"  name="model" class="form-control"  placeholder="model">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Buying price</label>
+        <input type="text"  name="buying_price" class="form-control"  placeholder="buying price">
+      </div>
+      <!--        <div class="form-group">
+        <label for="exampleInputPassword1">selling price</label>
+        <input type="text"  name="selling_price" class="form-control" placeholder="selling price">
+      </div> -->
+   <!-- <div class="form-group">
+        <label for="exampleInputPassword1">quantity</label>
+        <input type="number"  name="quantity" class="form-control" id="exampleInputPassword3" placeholder="quantity">
+      </div> -->
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+      </div>
+      <div class="modal-footer">
+       <!--  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
 
     <!-- Bootstrap core JavaScript-->
     <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js')}}"></script>

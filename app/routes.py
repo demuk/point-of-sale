@@ -92,11 +92,12 @@ def add_product():
         quantity=1
         user_id=current_user.id
         shop_id=request.form['shop_id']
+        shop= Shop.query.get(shop_id)
         product=Product(name=name,model=model,quantity=quantity,buying_price=buying_price,product_key=product_key,
             selling_price=selling_price,user_id=user_id,shop_id=shop_id)
         db.session.add(product)
         db.session.commit()
-        return redirect(url_for('home'))
+        return redirect(url_for('view_shop',sk=shop.shop_key))
 
 
 @app.route('/add_shop',methods=['GET','POST'])
@@ -139,7 +140,7 @@ def inventory():
     
 @app.route('/view_shop/<sk>')
 def view_shop(sk):
-    shop=Shop.query.filter_by(shop_key=sk)
+    shop=Shop.query.filter_by(shop_key=sk).first()
     return render_template('shop.html',shop=shop)
 
 

@@ -46,7 +46,7 @@
                           
 
                         </p>
-                        {% if product.quantity >= 1%}
+                        
                         <table class="table">
                             <tr>
                                 <th>name</th>
@@ -60,7 +60,7 @@
                                 <td>{{product.name}}</td>
                                 <!-- <td>{{product.buying_price}}</td>
                                 <td>{{product.selling_price}}</td> -->
-                                <td>{{product.quantity}}</td>
+                                <!-- <td>{{product.quantity}}</td> -->
                                 {% if product.status=='not sold'%}
                                  <td><span class="badge badge-success">{{product.status}}</span></td>
                                  {% else %}
@@ -70,10 +70,10 @@
                             </tr>
                           {%endif%}
                         </table>
-                        <p>sold at ksh {{product.selling_price}}</p>
+                        <!-- <p>sold at ksh {{product.selling_price}}</p>
                         {%if product.status=='sold'%}
                         <p>profit earned is {{profit}}</p>
-                        {%endif%}
+                        {%endif%} -->
                     </div>
                 </div>
             </div>

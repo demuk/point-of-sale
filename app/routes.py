@@ -61,7 +61,7 @@ def login():
         if user:
             if check_password_hash(user.password_hash, request.form['password']):
                 login_user(user, remember=True)
-            return redirect(url_for('home'))
+            return redirect(url_for('index'))
         flash('invalid Username or Password')
         return redirect(url_for('login'))
     return render_template('login.html')
@@ -115,10 +115,9 @@ def add_shop():
             return redirect(url_for('home'))
 
 
-@app.route('/sell_prod/<int:id>', methods=['POST','GET'])
-def sell_prod(id):
-     
-    product = Product.query.get(id)
+@app.route('/sell_prod/<pk>', methods=['POST','GET'])
+def sell_prod(pk):
+    product = Product.query.filter_by(product_key=pk)
     if request.method=='POST':
         alphabet = string.ascii_letters + string.digits
         sales_key = ''.join(secrets.choice(alphabet) for i in range(32))
@@ -128,7 +127,7 @@ def sell_prod(id):
         # db.session.add(product)
         db.session.add(sale)
         db.session.commit()
-    return redirect(url_for('view_prod',id=id))
+    return redirect(url_for('view_prod',product_key=product_key))
 
     
     
@@ -144,11 +143,10 @@ def view_shop(sk):
     return render_template('shop.html',shop=shop)
 
 
-@app.route('/view_prod/<int:id>', methods=['POST','GET'])
-def view_prod(id):
-    product=Product.query.get(id)
-    profit=product.selling_price-product.buying_price
-    return render_template('view_prod.html',product=product,profit=profit)
+@app.route('/view_prod/<pk>', methods=['POST','GET'])
+def view_prod(pk):
+    product=Product.query.filter_by(product_key=pk).first()
+    return render_template('view_prod1.html',product=product)
 
 
 @app.route('/delete_prod/<int:id>',methods=['GET','POST'])

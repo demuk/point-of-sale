@@ -12,6 +12,7 @@ import os
 
 
 
+
 @app.route('/')
 @app.route('/index')
 @login_required
@@ -117,17 +118,17 @@ def add_shop():
 
 @app.route('/sell_prod/<pk>', methods=['POST','GET'])
 def sell_prod(pk):
-    product = Product.query.filter_by(product_key=pk)
+    product = Product.query.filter_by(product_key=pk).first()
     if request.method=='POST':
         alphabet = string.ascii_letters + string.digits
         sales_key = ''.join(secrets.choice(alphabet) for i in range(32))
         product.status = 'sold'
-        sale=Sales(product_id=id,sales_key= sales_key)
+        sale=Sales(product_id=product.id,sales_key= sales_key)
         product.selling_price=request.form['selling_price']
         # db.session.add(product)
         db.session.add(sale)
         db.session.commit()
-    return redirect(url_for('view_prod',product_key=product_key))
+    return redirect(url_for('view_prod',pk=product.product_key))
 
     
     
@@ -136,6 +137,15 @@ def inventory():
     products=Product.query.all()
     shops=Shop.query.all()
     return render_template('inventory.html',products=products, shops=shops)
+
+@app.route('/shop_inventory/<sk>')
+def shop_inventory(sk):
+    # products=Product.query.filter_by(shop_key=sk).first()
+    shop=Shop.query.filter_by(shop_key=sk).first()
+    # products=Product.query.filter_by(shop_id=shop.id).first()
+    return render_template('shop_inventory.html', shop=shop)
+
+
     
 @app.route('/view_shop/<sk>')
 def view_shop(sk):
@@ -175,6 +185,11 @@ def sales():
     sales=Sales.query.all()
     products=Product.query.all()
     return render_template('sales.html',sales=sales,products=products)
+
+@app.route('/view_sale/<sk>', methods=['POST','GET'])
+def view_sale(sk):
+    sale=Sale.query.filter_by(product_key=sk).first()
+    return render_template('view_sale.html',sale=sale)
 
 
 @app.route("/export", methods=['GET'])

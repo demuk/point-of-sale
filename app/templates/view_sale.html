@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>POS Inventory</title>
+    <title>View Product - POS</title>
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -38,7 +38,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">Inventory<sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">Shop Name<sup></sup></div>
             </a>
 
             <!-- Divider -->
@@ -60,17 +60,18 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+            <li class="nav-item active">
+                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+                    aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Components</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo"
+                    data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Components:</h6>
                         <a class="collapse-item" href="buttons.html">Buttons</a>
-                        <a class="collapse-item" href="cards.html">Cards</a>
+                        <a class="collapse-item active" href="cards.html">Cards</a>
                     </div>
                 </div>
             </li>
@@ -131,12 +132,12 @@
             </li>
 
             <!-- Nav Item - Tables -->
-            <!-- <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="tables.html">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Tables</span></a>
             </li>
- -->
+
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -158,11 +159,9 @@
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
                     <!-- Sidebar Toggle (Topbar) -->
-                    <form class="form-inline">
-                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                            <i class="fa fa-bars"></i>
-                        </button>
-                    </form>
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
 
                     <!-- Topbar Search -->
                     <form
@@ -364,63 +363,29 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Inventory</h1>
-                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                        For more information about DataTables, please visit the <a target="_blank"
-                            href="https://datatables.net">official DataTables documentation</a>.</p>
-
-
-
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Inventory Table</h6>
-                            <div style="text-align: right;">
-                                <a href="{{url_for('export')}}">
-                                    <button  type="button" class="btn btn-primary btn-sm">Export</button>
-                                </a>
-                                
-                            </div>
-                            
-                       
-                            
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Model</th>
-                                            <th>Quantity</th>
-                                            <th>Shop</th>
-                                            <th>Buying Price</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-
-                                        {% for product in products %}
-                                        {%if  product.quantity >=1  and product.status=='not sold'%}
-
-                                        <tr>
-                                            <td>{{product.name}}</td>
-                                            <td>{{product.model}}</td>
-                                            <td>{{product.quantity}}</td>
-                                            <td>{{product.shop.name}}</td>
-                                            <td>Ksh {{product.buying_price}}</td>
-                                            <td>
-                                                <a href="{{ url_for('view_prod',pk=product.product_key) }}" class="btn btn-warning">Open</a>
-                                            </td>
-                                        </tr>
-                                        {% endif %}
-                                        {%endfor%}
-                                                                               
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Sale</h1>
                     </div>
+
+                    <div class="card text-center">
+                        
+                      <div class="card-header">
+                        Sale Details 
+                      </div>
+
+                      <div class="card-body">
+                        <h5 class="card-title">{{product.name}}</h5>
+                        <p class="card-text">{{product.model}}</p>
+                        <p class="card-text">{{product.selling_price}}</p>
+                        
+                        <a href="" class="btn btn-warning">Receipt</a>
+                      </div>
+                      <div class="card-footer text-muted">
+                        {{product.status}}
+                      </div>
+
+                    </div>
+
 
                 </div>
                 <!-- /.container-fluid -->
@@ -448,6 +413,49 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+
+
+    <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal3">
+  Launch demo modal
+</button>
+
+
+    <!-- sell product modal -->
+<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel1">sell product</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{{url_for('sell_prod',pk=product.product_key)}}" method="post">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Selling price</label>
+            <input type="number" name="selling_price" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="enter selling price">
+
+          </div>
+          <!-- <div class="form-group">
+            <label for="exampleInputPassword1">Shop location</label>
+            <input type="" class="form-control" id="exampleInputPassword1" placeholder="Password">
+          </div> -->
+         <!--  <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+          </div> -->
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+      </div>
+     <!--  <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div>
+  </div>
+</div>
 
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

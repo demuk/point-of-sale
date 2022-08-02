@@ -78,7 +78,7 @@
                                 <td>{{product.created_on}}</td>
                                 <td>{{product.quantity}}</td>
                                 <td>
-                                    <a href="{{ url_for('view_prod',id=product.id) }}" class="btn btn-warning">Open</a>
+                                    <a href="{{ url_for('view_prod',pk=product.product_key) }}" class="btn btn-warning">Open</a>
                                 </td>
                             </tr>
                            

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
- <
+
 <head>
 
     <meta charset="utf-8">
@@ -16,11 +16,10 @@
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-       
+
     <!-- Custom styles for this template -->
     <link href="{{ url_for('static', filename='css/sb-admin-2.min.css')}}" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
-    
+
     <!-- Custom styles for this page -->
     <link href="{{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 
@@ -365,7 +364,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">{{shop.name}} Inventory</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Inventory</h1>
                     <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
                         For more information about DataTables, please visit the <a target="_blank"
                             href="https://datatables.net">official DataTables documentation</a>.</p>
@@ -377,7 +376,7 @@
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Inventory Table</h6>
                             <div style="text-align: right;">
-                                <a href="{{url_for('export',status='not sold')}}">
+                                <a href="{{url_for('export',status='sold')}}">
                                     <button  type="button" class="btn btn-primary btn-sm">Export</button>
                                 </a>
                                 
@@ -401,8 +400,8 @@
                                     </thead>
                                     <tfoot>
 
-                                        {% for product in shop.products %}
-                                        {%if  product.quantity >=1  and product.status=='not sold'%}
+                                        {% for product in products %}
+                                        {%if  product.quantity >=1  and product.status=='sold'%}
 
                                         <tr>
                                             <td>{{product.name}}</td>
@@ -486,7 +485,6 @@
 
     <!-- Page level custom scripts -->
     <script src="{{ url_for('static', filename='js/demo/datatables-demo.js')}}"></script>
-    <script type="text/javascript" src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 
 </body>
 

@@ -1,4 +1,4 @@
-from app import app, db
+from app import app, db,login
 from flask import render_template, redirect, url_for, flash, request
 # from app.models import userdatastore, security
 from app.forms import RegistrationForm
@@ -12,6 +12,7 @@ import os
 
 
 
+login.login_view='login'
 
 @app.route('/')
 @app.route('/index')
@@ -64,7 +65,7 @@ def login():
                 login_user(user, remember=True)
             return redirect(url_for('index'))
         flash('invalid Username or Password')
-        return redirect(url_for('login'))
+        return redirect(url_for('index'))
     return render_template('login.html')
 
 @app.route('/add_product',methods=['GET','POST'])
@@ -184,7 +185,7 @@ def edit_product(id):
 def sales():
     sales=Sales.query.all()
     products=Product.query.all()
-    return render_template('sales.html',sales=sales,products=products)
+    return render_template('all_sales.html',sales=sales,products=products)
 
 @app.route('/view_sale/<sk>', methods=['POST','GET'])
 def view_sale(sk):
@@ -192,9 +193,9 @@ def view_sale(sk):
     return render_template('view_sale.html',sale=sale)
 
 
-@app.route("/export", methods=['GET'])
-def export():
-    query_sets= Product.query.all()
+@app.route("/export/<status>", methods=['GET'])
+def export(status):
+    query_sets= Product.query.filter_by(status=status)
     column_names = ['id', 'name','status','model']
     return excel.make_response_from_query_sets(query_sets, column_names, "xlsx")
     return redirect(url_for('home'))
